@@ -55,7 +55,7 @@ componentconstructors['chatbox'] = function(dynmap, configuration) {
 				}
 			});
 		}
-	} else {
+	} else {
 		if (dynmap.options.allowwebchat) {
 			var chatinput = $('<input/>')
 				.addClass('chatinput')
