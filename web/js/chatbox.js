@@ -7,24 +7,74 @@ componentconstructors['chatbox'] = function(dynmap, configuration) {
 		.addClass('messagelist')
 		.appendTo(chat);
 	
-	if (dynmap.options.allowwebchat) {
-		var chatinput = $('<input/>')
-			.addClass('chatinput')
-			.attr({
-				id: 'chatinput',
-				type: 'text',
-				value: ''
-			})
-			.keydown(function(event) {
-				if (event.keyCode == '13') {
-					event.preventDefault();
-					if(chatinput.val() != '') {
-						$(dynmap).trigger('sendchat', [chatinput.val()]);
-						chatinput.val('');
+	if (dynmap.options.wordpress) {
+		if (dynmap.options.allowwebchat) {
+			$.ajax({
+				type: 'POST',
+				url: 'standalone/wp-login.php',
+				success: function(loggedin) {
+					if (loggedin == "true") {
+						var chatinput = me.chatinput = $('<input/>')
+							.addClass('chatinput')
+							.attr({
+								id: 'chatinput',
+								type: 'text',
+								value: ''
+							})
+							.keydown(function(event) {
+								if (event.keyCode == '13') {
+									event.preventDefault();
+									var message = chatinput.val();
+									var data = '{"message":"'+message+'"}';
+									$.ajax({
+										type: 'POST',
+										url: 'standalone/wp-login.php',
+										data: data,
+										dataType: 'json',
+										success: function(response) {
+											if(response) {
+												//$(dynmap).trigger('chat', [{source: 'me', name: ip, text: message}]);
+											}
+										},
+										error: function(xhr) {
+											if (xhr.status === 403) {
+												$(dynmap).trigger('chat', [{source: 'me', name: 'Error', text: dynmap.options.spammessage.replace('%interval%', dynmap.options['webchat-interval'])}]);
+											}
+										}
+									});
+									chatinput.val('');
+								}
+							})
+							.appendTo(chat);
+					} else {
+						var chatinput = $('<div/>')
+							.addClass('chatinputoff')
+							.html('You are not logged in! <a class="simplemodal-login" href="/wp-login.php">login</a> (<a class="simplemodal-register" href="/wp-login.php?action=register">registration</a>)')
+							.appendTo(chat);
 					}
 				}
-			})
-			.appendTo(chat);
+			});
+		}
+	} else {
+		if (dynmap.options.allowwebchat) {
+			var chatinput = $('<input/>')
+				.addClass('chatinput')
+				.attr({
+					id: 'chatinput',
+					type: 'text',
+					value: ''
+				})
+				.keydown(function(event) {
+					if (event.keyCode == '13') {
+						event.preventDefault();
+						if(chatinput.val() != '') {
+							$(dynmap).trigger('sendchat', [chatinput.val()]);
+							chatinput.val('');
+						}
+					}
+				})
+				.appendTo(chat);
+		}
 	}
 	
 	var addrow = function(row) {
