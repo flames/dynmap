@@ -4,7 +4,7 @@ regionConstructors['Residence'] = function(dynmap, configuration) {
 		return boxCreator(area.X1, area.X2, area.Y1, area.Y2, area.Z1, area.Z2);
 	}
 
-	$.getJSON('standalone/res_' + worldName + '.json', function(data) {
+	$.getJSON(config.rootpath + 'standalone/res_' + worldName + '.json', function(data) {
 		var boxLayers = [];
 		$.each(data, function(name, residence) {
 			if(worldName == residence.Permissions.World) {

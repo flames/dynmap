@@ -188,7 +188,7 @@ DynMap.prototype = {
 					.append($('<a/>')
 							.attr({ title: map.title, href: '#' })
 							.addClass('maptype')
-							.css({ backgroundImage: 'url(' + (map.icon || 'images/block_' + map.name + '.png') + ')' })
+							.css({ backgroundImage: 'url(' + (map.icon || config.rootpath + 'images/block_' + map.name + '.png') + ')' })
 							.text(map.title)
 							)
 					.click(function() {
@@ -276,7 +276,7 @@ DynMap.prototype = {
 		
 		var componentstoload = me.options.components.length;
 		$.each(me.options.components, function(index, configuration) {
-			loadjs('js/' + configuration.type + '.js', function() {
+			loadjs(config.rootpath + 'js/' + configuration.type + '.js', function() {
 				var componentconstructor = componentconstructors[configuration.type];
 				if (componentconstructor) {
 					me.components.push(new componentconstructor(me, configuration));
@@ -511,7 +511,7 @@ DynMap.prototype = {
 			.addClass('player')
 			.append(playerIconContainer = $('<span/>')
 					.addClass('playerIcon')
-					.append($('<img/>').attr({ src: 'images/player_face.png' }))
+					.append($('<img/>').attr({ src: config.rootpath + 'images/player_face.png' }))
 					.attr({ title: 'Follow ' + player.name })
 					.click(function() {
 						var follow = player !== me.followingPlayer;

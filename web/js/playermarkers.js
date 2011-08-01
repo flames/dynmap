@@ -13,7 +13,7 @@ componentconstructors['playermarkers'] = function(dynmap, configuration) {
 				.addClass('Marker')
 				.addClass('playerMarker')
 				.append(playerImage = $('<img/>')
-						.attr({ src: 'images/player.png' }))
+						.attr({ src: config.rootpath + 'images/player.png' }))
 				.append($('<span/>')
 					.addClass(configuration.smallplayerfaces?'playerNameSm':'playerName')
 					.text(player.name));

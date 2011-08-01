@@ -92,9 +92,9 @@ componentconstructors['regions'] = function(dynmap, configuration) {
 	}
 	
 	var self = this;
-	loadcss('css/regions.css');
+	loadcss(config.rootpath + 'css/regions.css');
 	var regionType = configuration.name;
-	loadjs('js/regions_' + regionType + '.js', function() {
+	loadjs(config.rootpath + 'js/regions_' + regionType + '.js', function() {
 		var activeLayer = undefined;
 		function undraw() {
 			if (activeLayer) {

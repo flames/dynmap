@@ -22,7 +22,7 @@ regionConstructors['WorldGuard'] = function(dynmap, configuration) {
 	
 	var regionFile = configuration.filename.substr(0, configuration.filename.lastIndexOf('.'));
 	regionFile += '_'+configuration.worldName+'.json';
-	$.getJSON('standalone/'+regionFile, function(data) {
+	$.getJSON(config.rootpath + 'standalone/'+regionFile, function(data) {
 		var boxLayers = [];
 		$.each(data, function(name, region) {
 			var boxLayer = createBoxFromRegion(region, configuration.createBoxLayer);

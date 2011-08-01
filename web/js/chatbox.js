@@ -11,7 +11,7 @@ componentconstructors['chatbox'] = function(dynmap, configuration) {
 		if (dynmap.options.allowwebchat) {
 			$.ajax({
 				type: 'POST',
-				url: 'standalone/wp-login.php',
+				url: config.rootpath + 'standalone/wp-login.php',
 				success: function(loggedin) {
 					if (loggedin == "true") {
 						var chatinput = me.chatinput = $('<input/>')
@@ -28,7 +28,7 @@ componentconstructors['chatbox'] = function(dynmap, configuration) {
 									var data = '{"message":"'+message+'"}';
 									$.ajax({
 										type: 'POST',
-										url: 'standalone/wp-login.php',
+										url: config.rootpath + 'standalone/wp-login.php',
 										data: data,
 										dataType: 'json',
 										success: function(response) {
